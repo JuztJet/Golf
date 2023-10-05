@@ -117,8 +117,9 @@ while running:
   fired = False
   
   
-
+  print(time)
   #print(round(pygame.time.get_ticks()/1000, 0))
-  clock.tick(60)
+  clock.tick(60)  
+
   
   pygame.display.flip()
