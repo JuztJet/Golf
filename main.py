@@ -12,6 +12,7 @@ screen.fill('White')
 running = True
 line = False
 dt = 1
+x = 0
 clock = pygame.time.Clock()
 #Variable for physics
 mouse_pos = pygame.mouse.get_pos()
@@ -46,14 +47,19 @@ class Golf_Ball:
     self.colour = colour
     self.vertical_displacement = 0
     self.horizontal_displacement = 0
-    self.rect = pygame.Rect((self.x_pos-10, self.y_pos-10), (20,20))
+
     self.mass = mass
     self.angle = 0
     self.shoot = False
-    self.resistance = .2
-    self.velocity_constant = 0.005
+    self.resistance = 300
+    self.velocity_constant = 0.3
+    self.image = pygame.image.load('golf.png').convert_alpha()
+    self.image_copy = pygame.transform.rotate(self.image, 0)
+    self.rect = self.image.get_rect(center =(self.x_pos, self.y_pos) )
+    self.spin_angel = 0
+    #pygame.Rect((self.x_pos - 10, self.y_pos - 10), (20, 20))
   def mouse_click_manager(self):
-    if pygame.mouse.get_pressed()[0] == True:
+    if pygame.mouse.get_pressed()[0] == True and self.shoot == False:
     
       if self.rect.collidepoint(mouse_pos):
       
@@ -82,7 +88,10 @@ class Golf_Ball:
         if mouse_pos[0]<self.x_pos:
           self.angle= abs(self.angle-90) +90
       elif abs(self.x_pos-mouse_pos[0])==0:
-        self.angle = 90
+        if mouse_pos[1]>self.y_pos:
+          self.angle = -90
+        else:
+          self.angle = 90
       
       
       self.resultant = math.sqrt(abs(self.x_pos-mouse_pos[0])**2+abs(self.y_pos-mouse_pos[1])**2)
@@ -104,47 +113,76 @@ class Golf_Ball:
     self.x_vel = self.initial_vel * (math.cos(math.radians(self.angle)))
     self.y_vel = self.initial_vel * (math.sin(math.radians(self.angle)))
     print(self.x_vel, self.y_vel)
-    self.x_pos -= self.x_vel
-    self.y_pos -= self.y_vel
-    self.initial_vel -= self.resistance
+    self.x_pos -= self.x_vel*dt
+    self.y_pos -= self.y_vel*dt
+    self.initial_vel -= self.resistance*dt
     if self.initial_vel<=0:
       self.shoot = False
-    self.rect = pygame.Rect((self.x_pos - 10, self.y_pos - 10), (20, 20))
+    #self.rect = pygame.Rect((self.x_pos - 10, self.y_pos - 10), (20, 20))
+    self.rect.centerx = self.x_pos
+    self.rect.centery = self.y_pos
+    #self.rect.move_ip(self.x_pos,self.y_pos)
   def bounce_detection(self):
     if self.rect.x <=10:
-      print(self.angle)
       self.angle = abs(self.angle-90) +90
-      print(self.angle)
     if (self.rect.x+self.rect.width)>=w-10:
       if self.angle >180 and self.angle<270 :
 
         self.angle = (270-self.angle)+(-90)
       else:
-        self.angle = math.degrees(math.atan(abs(self.y_pos - mouse_pos[1]) / abs(self.x_pos - mouse_pos[0])))
+        self.angle = 180-self.angle
     if self.rect.y <=10:
       if self.angle >90 and self.angle<180:
         self.angle = 270 - (self.angle-90)
       else:
         self.angle = 0-self.angle
-    if (self.rect.y + self.rect.height)>=h:
+    if (self.rect.bottom)>=h-10:
       if self.angle<0 and self.angle>-90:
         self.angle = (self.angle*-1)
       else:
         self.angle = 180 - (self.angle-180)
+    if self.rect.bottom >h-10:
+      self.rect.y =(h-10)-self.rect.height
+    if self.rect.top <10:
+      self.rect.y = 10
 
 
-
-
-    
   def update(self):
-    pygame.draw.circle(screen, "Blue", (self.rect.centerx, self.rect.centery), 10)
+
+
+    #pygame.draw.circle(screen, "Blue", (self.rect.centerx, self.rect.centery), 10)
     if self.shoot:
       self.shooting()
       self.bounce_detection()
+      self.spin_angel += self.initial_vel*10*dt
+      self.image_copy = pygame.transform.rotate(self.image, self.spin_angel)
+    screen.blit(self.image_copy, (self.rect.centerx-int(self.image_copy.get_width()/2),self.rect.centery-int(self.image_copy.get_height()/2 )))
+
+
+
     self.mouse_click_manager()
     self.line_manager()
 
+class button:
+
+  def __init__(self, x_pos, y_pos, mode):
+    self.x_pos = x_pos
+    self.y_pos = y_pos
+    self.mode = mode
+    if self.mode == 'Disabled':
+      self.image = pygame.image.load('Green Button.png').convert_alpha()
+    else:
+      self.image = pygame.image.load('Red Button.png').convert_alpha()
+
+    self.image = pygame.transform.scale(self.image, (50,50))
+    self.image.set_colorkey('White')
+
+    self.rect = self.image.get_rect(center= (self.x_pos, self.y_pos))
+  def update(self):
+    screen.blit(self.image, self.rect)
+
 golf_ball = Golf_Ball(-3.5, w*.5, h*.8, "White", 0.04593)
+button_1 = button(w*0.7, h*0.3, 'Disabled')
 while running:
   #Event Loop
   for event in pygame.event.get():
@@ -162,11 +200,10 @@ while running:
   
   
   grass = pygame.draw.rect(screen, 'Green', ((0+10, 0+10),(w-20, h-20)))
-  
 
-    
-
+  button_1.update()
   golf_ball.update()
+
     
   
   #pygame.mouse.set_pos([50,50])
@@ -177,8 +214,8 @@ while running:
   #print(time)
   #print(golf_ball.angle)
   dt = clock.tick(70) / 1000
+  #print(golf_ball.rect.x, golf_ball.rect.y)
   #print(round(pygame.time.get_ticks()/1000, 0))
   clock.tick(70)
-
-  
+  print(golf_ball.angle)
   pygame.display.flip()
