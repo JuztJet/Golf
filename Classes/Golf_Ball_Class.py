@@ -31,7 +31,7 @@ class Golf_Ball:
         self.shoot = False
         self.resistance = 300
         self.velocity_constant = 0.3
-        self.image = pygame.image.load('Assets\golf.png').convert_alpha()
+        self.image = pygame.image.load('Assets/golf.png').convert_alpha()
         self.image_copy = pygame.transform.rotate(self.image, 0)
         self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
         self.spin_angel = 0
@@ -108,14 +108,14 @@ class Golf_Ball:
 
     def bounce_detection(self):
         if self.rect.x < 10:
-            self.rect.x = 10
+            self.rect.x = 15
             if self.x_inverse:
                 self.x_inverse = False
             else:
                 self.x_inverse = True
 
         if (self.rect.x + self.rect.width) > self.w - 10:
-            self.rect.x = self.w - 10 - self.rect.width
+            self.rect.x = self.w - 15 - self.rect.width
             if self.x_inverse:
                 self.x_inverse = False
             else:
@@ -135,7 +135,7 @@ class Golf_Ball:
         if self.rect.bottom > self.h - 10:
             self.rect.y = (self.h - 11) - self.rect.height
         if self.rect.top < 10:
-            self.rect.y = 11
+            self.rect.y = 15
         if self.rect.left <10:
             self.rect.x = 11
         if self.rect.right >self.w-19:

@@ -13,11 +13,15 @@ class Level3:
 
         self.dt = dt
     def create_objects(self):
-        self.end_hole = self.hole(self.width/2-100,50, 55, 55, self.screen)
-        self.block1 = self.block(10, 310, 150, 20, self.screen, False)
-        self.sand1 = self.sand(100,500,self.golf_ball, self.dt, 200, 200, 2000, self.screen)
+        self.end_hole = self.hole(self.width/2-30,80, 55, 55, self.screen)
+        #self.block1 = self.block(10, 310, 150, 20, self.screen, False)
+        self.sand1 = self.sand(100,self.height-200,self.golf_ball, self.dt, 10, 50, 2000, self.screen)
+        self.sand2 = self.sand(100,self.height-200,self.golf_ball, self.dt, self.width-10-100, 50, 2000, self.screen)
+        self.sand3 = self.sand(self.width-20,50,self.golf_ball, self.dt, 10, 10, 2000, self.screen)
     def update(self):
-        self.create_objects()
-        #self.end_hole.update(self.golf_ball)
-        self.block1.update(self.golf_ball)
-        #self.sand1.update()
+
+        self.end_hole.update(self.golf_ball)
+        #self.block1.update(self.golf_ball)
+        self.sand1.update()
+        self.sand2.update()
+        self.sand3.update()

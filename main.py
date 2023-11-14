@@ -21,11 +21,12 @@ screen.fill('White')
 running = True
 line = False
 dt = 1
+
 x = 0
 clock = pygame.time.Clock()
 #Variable for physics
 mouse_pos = pygame.mouse.get_pos()
-
+dt = clock.tick(70) / 1000
 
 
 
@@ -44,7 +45,7 @@ golf_ball = Golf_Ball(-3.5, w*.5, h*.8, "White", 0.04593, dt, w, h, mouse_pos, s
 level1= Level1(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt)
 level2= Level2(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block)
 level3= Level3(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block, Sand)
-
+level3.create_objects()
 # level_editor = Level_Editor(mouse_pos, screen, w, h, Golf_Ball, Button, Hole, Block, dt)
 # level_editor.level_edit_mode()
 while running:
@@ -63,7 +64,7 @@ while running:
 
   mouse_pos = pygame.mouse.get_pos()
 
-  screen.fill('White') 
+  screen.fill('White')
 
   grass = pygame.draw.rect(screen, 'Green', ((0+10, 0+10),(w-20, h-20)))
 
@@ -76,12 +77,8 @@ while running:
 
 
   fired = False
-  
-  
-  #print(time)
-  #print(golf_ball.angle)
   dt = clock.tick(70) / 1000
 
   clock.tick(70)
-
+  print(clock.get_fps())
   pygame.display.flip()
