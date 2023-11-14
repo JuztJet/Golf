@@ -11,7 +11,7 @@ from Classes.Level_2 import Level2
 from Classes.Level_3 import Level3
 from Classes.Sand_class import Sand
 
-
+time = 0
 
 pygame.init()  #Starting Pygame
 w,h = 350, 570  #Getting width height
@@ -45,7 +45,7 @@ golf_ball = Golf_Ball(-3.5, w*.5, h*.8, "White", 0.04593, dt, w, h, mouse_pos, s
 level1= Level1(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt)
 level2= Level2(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block)
 level3= Level3(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block, Sand)
-level3.create_objects()
+level2.create_objects()
 # level_editor = Level_Editor(mouse_pos, screen, w, h, Golf_Ball, Button, Hole, Block, dt)
 # level_editor.level_edit_mode()
 while running:
@@ -68,17 +68,20 @@ while running:
 
   grass = pygame.draw.rect(screen, 'Green', ((0+10, 0+10),(w-20, h-20)))
 
-  level3.update()
-  golf_ball.update(mouse_pos, dt)
+  #level3.update()
 
+
+  time+=2*dt
 
   #level1.update()
-  #level2.update()
-
+  level2.update(time, clock.get_fps())
+  golf_ball.update(mouse_pos, dt)
 
   fired = False
-  dt = clock.tick(70) / 1000
+  dt = clock.tick(40) / 1000
 
-  clock.tick(70)
-  print(clock.get_fps())
+  clock.tick(40)
+
+
+  #print(clock.get_fps())
   pygame.display.flip()

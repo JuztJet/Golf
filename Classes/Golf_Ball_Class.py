@@ -107,39 +107,36 @@ class Golf_Ball:
         # self.rect.move_ip(self.x_pos,self.y_pos)
 
     def bounce_detection(self):
-        if self.rect.x < 10:
-            self.rect.x = 15
+        if self.rect.x <=10:#Left
+            self.rect.x = 11
             if self.x_inverse:
                 self.x_inverse = False
             else:
                 self.x_inverse = True
 
-        if (self.rect.x + self.rect.width) > self.w - 10:
+        if (self.rect.x + self.rect.width) > self.w - 10:#Right
             self.rect.x = self.w - 15 - self.rect.width
             if self.x_inverse:
                 self.x_inverse = False
             else:
                 self.x_inverse = True
 
-        if self.rect.y <= 10:
+        if self.rect.y <= 10:#Top
+            self.rect.y = 11
             if self.y_inverse:
                 self.y_inverse = False
             else:
                 self.y_inverse = True
 
-        if (self.rect.bottom) >= self.h - 10:
+        if (self.rect.bottom) >= self.h - 10:#Bottom
+            self.rect.y = (self.h - 11) - self.rect.height
             if self.y_inverse:
                 self.y_inverse = False
             else:
                 self.y_inverse = True
-        if self.rect.bottom > self.h - 10:
-            self.rect.y = (self.h - 11) - self.rect.height
-        if self.rect.top < 10:
-            self.rect.y = 15
-        if self.rect.left <10:
-            self.rect.x = 11
-        if self.rect.right >self.w-19:
-            self.rect.x = (self.w -11)-self.rect.height
+
+
+
 
     def update(self, mouse_pos, dt):
         self.mouse_pos = mouse_pos
