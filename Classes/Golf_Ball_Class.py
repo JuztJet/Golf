@@ -6,10 +6,14 @@ import math
 
 
 class Golf_Ball:
-    def __init__(self, grav, x_pos, y_pos, colour, mass, dt, w, h, mouse_pos, screen):
+    def __init__(self, grav, x_pos, y_pos, colour, mass, dt, w, h, mouse_pos, screen, box_width, box_height):
         self.screen = screen
+        self.resisting = False
+        self.box_width= box_width
+        self.box_height=box_height
         self.grav = grav  # -3.5
         self.dt = dt
+
         self.w = w
         self.h = h
         self.visible = True
@@ -29,8 +33,8 @@ class Golf_Ball:
         self.mass = mass
         self.angle = 0
         self.shoot = False
-        self.resistance = 300
-        self.velocity_constant = 0.3
+        self.resistance = 100
+        self.velocity_constant = 0.15
         self.image = pygame.image.load('Assets/golf.png').convert_alpha()
         self.image_copy = pygame.transform.rotate(self.image, 0)
         self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
@@ -50,9 +54,10 @@ class Golf_Ball:
             if self.line and self.held_down == False and self.resultant <= 190:
                 self.held_down = True
                 self.line = False
-                print("Hit")
+
                 self.fired_resultant = self.resultant * self.velocity_constant
                 self.initial_vel = int(round((((self.fired_resultant) / self.mass) * 1), 0))
+                print("Hit", self.initial_vel)
                 self.shoot = True
                 self.x_inverse, self.y_inverse = False, False
 
@@ -97,39 +102,42 @@ class Golf_Ball:
             self.y_vel *= -1
         self.x_pos -= self.x_vel * self.dt
         self.y_pos -= self.y_vel * self.dt
-
-        self.initial_vel -= self.resistance * self.dt
+        if not self.resisting:
+            self.initial_vel = self.initial_vel/self.resistance
+        if self.initial_vel<=10:
+            self.initial_vel=0
         if self.initial_vel <= 0:
             self.shoot = False
         # self.rect = pygame.Rect((self.x_pos - 10, self.y_pos - 10), (20, 20))
         self.rect.centerx = self.x_pos
         self.rect.centery = self.y_pos
+        #print( '- Xpos=', self.x_pos, '- Ypos=', self.y_pos, '-  Speed=', self.initial_vel, self.dt)
         # self.rect.move_ip(self.x_pos,self.y_pos)
 
     def bounce_detection(self):
-        if self.rect.x <=10:#Left
-            self.rect.x = 11
+        if self.rect.x <= self.box_width+2:#Left
+            self.rect.x = self.box_width+4
             if self.x_inverse:
                 self.x_inverse = False
             else:
                 self.x_inverse = True
 
-        if (self.rect.x + self.rect.width) > self.w - 10:#Right
-            self.rect.x = self.w - 15 - self.rect.width
+        if self.rect.right > (self.box_width+self.w):#Right
+            self.rect.right = self.box_width+self.w-4
             if self.x_inverse:
                 self.x_inverse = False
             else:
                 self.x_inverse = True
 
-        if self.rect.y <= 10:#Top
-            self.rect.y = 11
+        if self.rect.top <= self.box_height:#Top
+            self.rect.y = self.box_height+4
             if self.y_inverse:
                 self.y_inverse = False
             else:
                 self.y_inverse = True
 
-        if (self.rect.bottom) >= self.h - 10:#Bottom
-            self.rect.y = (self.h - 11) - self.rect.height
+        if (self.rect.bottom) >= self.box_height+self.h:#Bottom
+            self.rect.bottom = self.box_height+self.h-4
             if self.y_inverse:
                 self.y_inverse = False
             else:
@@ -153,4 +161,8 @@ class Golf_Ball:
 
             self.mouse_click_manager()
             self.line_manager()
-            self.resistance = 300
+            if self.initial_vel>200:
+                self.resistance = 1.01
+            else:
+                self.resistance=1.03
+            #print(self.dt)
