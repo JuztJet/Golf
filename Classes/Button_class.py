@@ -2,12 +2,16 @@
 import pygame
 class Button:
 
-  def __init__(self, x_pos, y_pos, mode, direction, disable_after_use, screen):
+  def __init__(self, x_pos, y_pos, mode, direction, disable_after_use, screen, close_hole, block, box_width, box_height, dt, time):
     self.x_pos = x_pos
     self.y_pos = y_pos
     self.screen = screen
     self.mode = mode
+    self.dt = dt
+    self.box_width = box_width
+    self.box_height = box_height
     self.direction = direction
+    self.time = time
     self.disable_after_use = disable_after_use
     self.on_button1 = False
     self.on_button2 = False
@@ -25,6 +29,16 @@ class Button:
       'Down':pygame.transform.rotate(pygame.image.load('Assets\Red button facing left.png').convert_alpha(), 90),
       'Up':pygame.transform.rotate(pygame.image.load('Assets\Red button facing left.png').convert_alpha(), 270)
       }
+    self.close_hole = close_hole
+    if self.close_hole:
+      self.wall= [
+        #Top
+        block(self.box_width+120, self.box_height, 100, 30, self.screen, False, self.dt, self.time, 0, False, 0, 0, 0),
+        block(self.box_width+90, self.box_height, 30, 130, self.screen, False, self.dt, self.time, 0, False, 0, 0, 0),
+        #Bottom
+        block(self.box_width+120, self.box_height+100, 100, 30, self.screen, False, self.dt, self.time, 0, False, 0, 0, 0),
+        block(self.box_width+220, self.box_height, 30, 130, self.screen, False, self.dt, self.time, 0, False, 0, 0, 0)
+      ]
 
 
     if self.mode == 'Enabled':
@@ -149,6 +163,9 @@ class Button:
         self.mode = 'Disabled'
       self.update_golf_ball_colour()
 
+  def close_hole(self):
+    pass
+
 
   def update_golf_ball_colour(self):
     if self.mode == 'Enabled':
@@ -162,6 +179,15 @@ class Button:
 
 
   def update(self, golf_ball):
-    self.clicked(golf_ball)
+    if  not self.disable_after_use:
+      self.clicked(golf_ball)
+    elif self.mode == 'Enabled':
+      self.clicked(golf_ball)
+    else:
+      self.wall[0].update(golf_ball)
+      self.wall[1].update(golf_ball)
+      self.wall[2].update(golf_ball)
+      self.wall[3].update(golf_ball)
+      pygame.draw.line(self.screen, 'Blue', (self.wall[3].rect.x+self.wall[3].rect.width, self.wall[3].rect.y), (self.wall[3].rect.x+self.wall[3].rect.width, self.wall[3].rect.y+self.wall[3].rect.height), 2)
     self.screen.blit(self.image, self.rect)
     pygame.draw.rect(self.screen, 'Black', self.rect, 1)
