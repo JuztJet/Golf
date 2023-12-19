@@ -7,7 +7,7 @@ class Hole:
     self.screen = screen
     self.width = width
     self.height = height
-    self.image = pygame.transform.smoothscale(pygame.image.load('Assets\Hole.png'), (self.width, self.height))
+    self.image = pygame.transform.smoothscale(pygame.image.load('Assets/Hole.png'), (self.width, self.height))
     self.rect = self.image.get_rect(center= (self.x_pos, self.y_pos))
     self.mask = pygame.mask.from_surface(self.image)
 

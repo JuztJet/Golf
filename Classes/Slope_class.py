@@ -9,18 +9,18 @@ class slope:
         self.golf_ball = golf_ball
         self.screen = screen
         if self.slope == "Down":
-            self.image = pygame.transform.smoothscale(pygame.image.load("Assets\Red_slope_down_test.png").convert_alpha(), (width,height))
+            self.image = pygame.transform.smoothscale(pygame.image.load("Assets/Red_slope_down_test.png").convert_alpha(), (width,height))
         elif self.slope == "Up":
             self.image = pygame.transform.rotate(pygame.transform.smoothscale(
-                pygame.image.load("Assets\Red_slope_down_test.png").convert_alpha(),
+                pygame.image.load("Assets/Red_slope_down_test.png").convert_alpha(),
                 (width, height)), 180)
         elif self.slope == "Right":
             self.image = pygame.transform.rotate(pygame.transform.smoothscale(
-                pygame.image.load("Assets\Red_slope_down_test.png").convert_alpha(),
+                pygame.image.load("Assets/Red_slope_down_test.png").convert_alpha(),
                 (width, height)), 90)
         elif self.slope == "Left":
             self.image = pygame.transform.rotate(pygame.transform.smoothscale(
-                pygame.image.load("Assets\Red_slope_down_test.png").convert_alpha(),
+                pygame.image.load("Assets/Red_slope_down_test.png").convert_alpha(),
                 (width, height)), -90)
         self.rect = self.image.get_rect(topleft=(x, y))
 

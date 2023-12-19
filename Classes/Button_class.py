@@ -16,18 +16,18 @@ class Button:
     self.on_button1 = False
     self.on_button2 = False
     self.enabled_button_images = {
-      'Flat': pygame.transform.scale(pygame.image.load('Assets\Green Button.png').convert_alpha(), (50, 50)),
-      'Left':pygame.image.load('Assets\Green Button Facing left.png').convert_alpha(),
-      'Right':pygame.transform.flip(pygame.image.load('Assets\Green Button Facing left.png').convert_alpha(), True, False),
-      'Down':pygame.transform.rotate(pygame.image.load('Assets\Green Button Facing left.png').convert_alpha(), 90),
-      'Up':pygame.transform.rotate(pygame.image.load('Assets\Green Button Facing left.png').convert_alpha(), 270)
+      'Flat': pygame.transform.scale(pygame.image.load('Assets/Green Button.png').convert_alpha(), (50, 50)),
+      'Left':pygame.image.load('Assets/Green Button Facing left.png').convert_alpha(),
+      'Right':pygame.transform.flip(pygame.image.load('Assets/Green Button Facing left.png').convert_alpha(), True, False),
+      'Down':pygame.transform.rotate(pygame.image.load('Assets/Green Button Facing left.png').convert_alpha(), 90),
+      'Up':pygame.transform.rotate(pygame.image.load('Assets/Green Button Facing left.png').convert_alpha(), 270)
       }
     self.disabled_button_images = {
-      'Flat': pygame.transform.scale(pygame.image.load('Assets\Red Button.png').convert_alpha(), (50, 50)),
-      'Left':pygame.image.load('Assets\Red button facing left.png').convert_alpha(),
-      'Right':pygame.transform.flip(pygame.image.load('Assets\Red button facing left.png').convert_alpha(), True, False),
-      'Down':pygame.transform.rotate(pygame.image.load('Assets\Red button facing left.png').convert_alpha(), 90),
-      'Up':pygame.transform.rotate(pygame.image.load('Assets\Red button facing left.png').convert_alpha(), 270)
+      'Flat': pygame.transform.scale(pygame.image.load('Assets/Red Button.png').convert_alpha(), (50, 50)),
+      'Left':pygame.image.load('Assets/Red button facing left.png').convert_alpha(),
+      'Right':pygame.transform.flip(pygame.image.load('Assets/Red button facing left.png').convert_alpha(), True, False),
+      'Down':pygame.transform.rotate(pygame.image.load('Assets/Red button facing left.png').convert_alpha(), 90),
+      'Up':pygame.transform.rotate(pygame.image.load('Assets/Red button facing left.png').convert_alpha(), 270)
       }
     self.close_hole = close_hole
     if self.close_hole:

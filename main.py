@@ -44,7 +44,7 @@ level3 = Level3(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block, box
 level4 = Level4(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block, box_w, box_h, slope, power_up, water, corner_block, Sand)  # Instantiating class called Level 2
 level5 = Level5(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block, box_w, box_h, slope, power_up, water, corner_block, Sand, time)  # Instantiating class called Level 2
 
-grass = pygame.transform.smoothscale(pygame.image.load('Assets\grass.png').convert_alpha(), (box_w,box_h))
+grass = pygame.transform.smoothscale(pygame.image.load('Assets/grass.png').convert_alpha(), (box_w,box_h))
 level1.create_objects()
 level2.create_objects()  # Running method inside Level 2 which will create the objects (eg Blocks, golf hole)
 level3.create_objects()  # Running method inside Level 3 which will create the objects (eg Blocks, golf hole)

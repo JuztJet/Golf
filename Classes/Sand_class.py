@@ -10,7 +10,7 @@ class Sand:
         self.x = x
         self.y = y
         self.sand_resistance = sand_resistance
-        self.image = pygame.transform.smoothscale(pygame.image.load("Assets\sand.png").convert_alpha(), (self.w,self.h))
+        self.image = pygame.transform.smoothscale(pygame.image.load("Assets/sand.png").convert_alpha(), (self.w,self.h))
         self.rect = self.image.get_rect(topleft=(self.x, self.y))
         self.screen = screen
 

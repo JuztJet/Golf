@@ -26,7 +26,7 @@ class Level5:
         self.sand = sand
 
         self.dt = dt
-        self.fake_brick = pygame.transform.smoothscale(pygame.image.load('Assets\Wooden_Block.png'), (self.width, 30))
+        self.fake_brick = pygame.transform.smoothscale(pygame.image.load('Assets/Wooden_Block.png'), (self.width, 30))
     def create_objects(self):
         #Creating the objects
         self.end_hole = self.hole(self.box_width+(self.width/2),self.box_height+80, 55, 55, self.screen)

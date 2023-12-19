@@ -90,7 +90,7 @@ class Block:
     self.disabled = disabled
     self.width = width
     self.height = height
-    self.image = pygame.transform.smoothscale(pygame.image.load('Assets\Wooden_Block.png'), (self.width, self.height))
+    self.image = pygame.transform.smoothscale(pygame.image.load('Assets/Wooden_Block.png'), (self.width, self.height))
     self.rect = self.image.get_rect(topleft= (self.x_pos, self.y_pos))
     self.mask = pygame.mask.from_surface(self.image)
     self.dt = dt
