@@ -16,7 +16,7 @@ class Sand:
 
     def sand_process(self):
         if self.golf_ball.rect.colliderect(self.rect):
-            self.golf_ball.resistance = 1.01 + self.sand_resistance
+            self.golf_ball.resistance = 300 + self.sand_resistance
 
     def update(self):
         self.screen.blit(self.image, self.rect)

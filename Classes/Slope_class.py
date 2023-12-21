@@ -34,12 +34,13 @@ class slope:
                 elif self.golf_ball.shoot==False:
                     self.golf_ball.resisting = True
                     self.golf_ball.shoot=True
-                    self.golf_ball.initial_vel= 25
-                    self.golf_ball.angle=268
-                    if self.golf_ball.y_inverse:
-                        self.golf_ball.y_inverse = False
-                    else:
-                        self.golf_ball.y_inverse = True
+                    self.golf_ball.initial_vel= 2
+                    self.golf_ball.angle=-90
+                    print(4)
+                    # if self.golf_ball.y_inverse:
+                    #     self.golf_ball.y_inverse = False
+                    # else:
+                    #     self.golf_ball.y_inverse = True
         else:
             self.golf_ball.resisting = False
     def slow_right(self):

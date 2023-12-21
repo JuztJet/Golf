@@ -37,15 +37,13 @@ class Level4:
     def update(self, time, clock):
         #Updating the objects, each object has their own specific update code
         self.end_hole.update(self.golf_ball)
+        self.block1.ccd(self.golf_ball)
+        self.block2.ccd(self.golf_ball)
+        self.block3.ccd(self.golf_ball)
         self.block1.update(self.golf_ball)
         self.block2.update(self.golf_ball)
         self.block3.update(self.golf_ball)
 
-        #self.down_slope.update()
-        #self.sand.update()
-        #self.power_up_1.update()
-        #self.water_1.update(self.golf_ball)
+
+
         #print(self.golf_ball.angle)
-        #self.roto_block.update(self.golf_ball)
-        print(self.golf_ball.angle)
-        #self.block2.update(self.golf_ball, time, clock)

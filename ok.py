@@ -163,7 +163,7 @@ class Block:
         self.disabled = disabled
         self.width = width
         self.height = height
-        self.image = pygame.transform.smoothscale(pygame.image.load('Assets\Wooden_Block.png'),
+        self.image = pygame.transform.smoothscale(pygame.image.load('Assets/Wooden_Block.png'),
                                                   (self.width, self.height))
         self.rect = self.image.get_rect(topleft=(self.x_pos, self.y_pos))
         self.mask = pygame.mask.from_surface(self.image)
@@ -230,7 +230,7 @@ golf_ball = Golf_Ball(200, 200, 0.04593, 20, 20, mouse_pos, screen, dt)
 block_1 = Block(100, 300, 50, 20, screen, False, dt)
 
 block = pygame.transform.rotate(
-    pygame.transform.smoothscale(pygame.image.load('Assets\Wooden_Block.png').convert_alpha(), (100, 50)), 45)
+    pygame.transform.smoothscale(pygame.image.load('Assets/Wooden_Block.png').convert_alpha(), (100, 50)), 45)
 block_rect = block.get_rect(topleft=(300, 200))
 
 running = True

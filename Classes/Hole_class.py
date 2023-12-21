@@ -15,6 +15,7 @@ class Hole:
     if golf_ball.rect.colliderect(self.rect):
       if self.rect.collidepoint(golf_ball.rect.centerx, golf_ball.rect.centery):
         golf_ball.visible = False
+        golf_ball.previous_rect = golf_ball.rect
 
 
 

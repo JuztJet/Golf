@@ -21,8 +21,8 @@ from Classes.Corner_Block_Class import corner_block
 pygame.init()  # Starting Pygame
 
 
-#screen = pygame.display.set_mode((1000,700))  # Main windows called screen
-screen = pygame.display.set_mode(pygame.display.get_desktop_sizes()[0])  # Main windows called screen
+screen = pygame.display.set_mode((1300,900))  # Main windows called screen
+#screen = pygame.display.set_mode(pygame.display.get_desktop_sizes()[0])  # Main windows called screen
 window_w, window_h = pygame.display.get_desktop_sizes()[0]
 w, h = (window_w/2-(350-20)/2)+10, (window_h/2-(570-20)/2)+10  # Getting width height
 box_w, box_h = 330, 550
@@ -37,7 +37,7 @@ time = 0  # Setting up a Time variable
 
 golf_ball = Golf_Ball(-3.5, w+box_w * .5, h+box_h * .8, "White", 0.04593, dt, box_w, box_h, mouse_pos, screen,w, h)
 
-counter = 5
+counter = 1
 level1 = Level1(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block, box_w, box_h, slope, power_up, water, corner_block, Sand, time)  # Instantiating class called Level 2
 level2 = Level2(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block, box_w, box_h, slope, power_up, water, corner_block, Sand)  # Instantiating class called Level 2
 level3 = Level3(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block, box_w, box_h, slope, power_up, water, corner_block, Sand)  # Instantiating class called Level 2

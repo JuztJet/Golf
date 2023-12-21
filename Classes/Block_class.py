@@ -146,27 +146,27 @@ class Block:
       else:
         golf_ball.y_inverse = True
 
-    elif doIntersect(p1, q1, p2_2, q2_2):
+    if doIntersect(p1, q1, p2_2, q2_2):
 
-      print("Yes")
+      print("Yes-----------")
       golf_ball.rect.right = self.rect.left
       golf_ball.rect.right -= 7
       if golf_ball.x_inverse:
         golf_ball.x_inverse = False
       else:
         golf_ball.x_inverse = True
-    elif doIntersect(p1, q1, p2_3, q2_3): # Right
+    if doIntersect(p1, q1, p2_3, q2_3): # Right
 
-      print("Yes")
+      print("Yes-----------")
       golf_ball.rect.left = self.rect.right
       golf_ball.rect.left += 7
       if golf_ball.x_inverse:
         golf_ball.x_inverse = False
       else:
         golf_ball.x_inverse = True
-    elif doIntersect(p1, q1, p2_4, q2_4): # Bottom
+    if doIntersect(p1, q1, p2_4, q2_4): # Bottom
 
-      print("Yes")
+      print("Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-Yep-")
       golf_ball.rect.top = self.rect.bottom
       golf_ball.rect.top -= 7
       if golf_ball.y_inverse:
@@ -176,8 +176,10 @@ class Block:
 
   def bounced(self, golf_ball):
 
+
     if golf_ball.rect.colliderect(self.rect):
-          if abs(self.rect.left-golf_ball.rect.right)<=5:
+
+          if abs(self.rect.left-golf_ball.rect.right)<=50:
             if not self.reciprocating:
               if golf_ball.rect.right > self.rect.left:
                 golf_ball.rect.right -= 1
@@ -189,7 +191,7 @@ class Block:
               self.side_bounce(golf_ball)
               return
 
-          if abs(self.rect.right-golf_ball.rect.left)<=5:
+          if abs(self.rect.right-golf_ball.rect.left)<=50:
             if not self.reciprocating:
               if golf_ball.rect.left <self.rect.right:
                 golf_ball.rect.left +=1
@@ -201,11 +203,12 @@ class Block:
               self.side_bounce(golf_ball)
               return
 
-          if abs(self.rect.bottom - golf_ball.rect.top)<=5:#Bottom
-
+          if abs(golf_ball.rect.top - self.rect.bottom)<=9:#Bottom
+            #print(7)
 
             if golf_ball.rect.top <self.rect.bottom:
-              golf_ball.rect.top +=1
+              golf_ball.rect.top = self.rect.bottom
+              golf_ball.rect.top +=4
             if golf_ball.y_inverse:
               golf_ball.y_inverse = False
             else:
@@ -225,44 +228,47 @@ class Block:
 
     else:
       self.in_block=False
+
   def side_bounce(self, golf_ball):
-    if not self.in_block:
-      self.in_block = True
-      if abs(golf_ball.rect.left - self.rect.right)==0:
-        golf_ball.rect.left+=10
-        return
 
+    # print("+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=+=")
+    self.in_block = True
+    # if abs(golf_ball.rect.left - self.rect.right)==0:
+    #   golf_ball.rect.left+=10
+    #   return
 
-      if golf_ball.rect.centerx<self.rect.centerx:
-        golf_ball.shoot = True
-        golf_ball.initial_vel = self.speed * self.dt * 140
-        if abs(golf_ball.rect.centerx - self.rect.centerx) != 0:
+    if golf_ball.rect.centerx < self.rect.centerx:
+      golf_ball.shoot = True
+      golf_ball.initial_vel = self.speed * self.dt * 140
+      if abs(golf_ball.rect.centerx - self.rect.centerx) != 0:
 
-          if golf_ball.rect.centery>self.rect.centery:
-            golf_ball.angle = 10 - (math.degrees(math.atan(
-              abs(golf_ball.rect.centery - self.rect.centery) / abs(golf_ball.rect.centerx - self.rect.centerx+1))))
-            golf_ball.rect.centery-=10
+        if golf_ball.rect.centery > self.rect.centery:
+          golf_ball.angle = 10 - (math.degrees(math.atan(
+            abs(golf_ball.rect.centery - self.rect.centery) / abs(golf_ball.rect.centerx - self.rect.centerx + 1))))
 
-          elif golf_ball.rect.centery<self.rect.centery:
-            golf_ball.angle = 10+(math.degrees(math.atan(
-              abs(golf_ball.rect.centery - self.rect.centery) / abs(golf_ball.rect.centerx - self.rect.centerx+1))))
-            golf_ball.rect.centery += 10
+        elif golf_ball.rect.centery < self.rect.centery:
+          golf_ball.angle = 10 + (math.degrees(math.atan(
+            abs(golf_ball.rect.centery - self.rect.centery) / abs(golf_ball.rect.centerx - self.rect.centerx + 1))))
+      if golf_ball.rect.centery == self.rect.centery:
+        golf_ball.angle = 10
 
-      else:
-        golf_ball.shoot = True
-        golf_ball.initial_vel = self.speed * self.dt * 140
-        if abs(golf_ball.rect.centerx - self.rect.centerx) != 0:
-          if golf_ball.rect.centery>self.rect.centery:
-            golf_ball.angle = 190+ (math.degrees(math.atan(
-                abs(golf_ball.rect.centery - self.rect.centery) / abs(golf_ball.rect.centerx - self.rect.centerx+1))))
-            golf_ball.rect.centery -= 10
-          elif golf_ball.rect.centery<self.rect.centery:
-            golf_ball.angle = 170-(math.degrees(math.atan(
-              abs(golf_ball.rect.centery - self.rect.centery) / abs(golf_ball.rect.centerx - self.rect.centerx+1))))
-            golf_ball.rect.centery += 10
+    else:
+      golf_ball.shoot = True
+      golf_ball.initial_vel = self.speed * self.dt * 160
+      if abs(golf_ball.rect.centerx - self.rect.centerx) != 0:
+        if golf_ball.rect.centery > self.rect.centery:  # when golfball is lower
+          golf_ball.angle = 200 + (math.degrees(math.atan(
+            abs(golf_ball.rect.centery - self.rect.centery) / abs(golf_ball.rect.centerx - self.rect.centerx + 1))))
+          # golf_ball.rect.centery -= 10
+        elif golf_ball.rect.centery < self.rect.centery:  # when golfball is higher
+          golf_ball.angle = 160 - (math.degrees(math.atan(
+            abs(golf_ball.rect.centery - self.rect.centery) / abs(golf_ball.rect.centerx - self.rect.centerx + 1))))
 
+          # golf_ball.rect.centery += 10
+      if golf_ball.rect.centery == self.rect.centery:
+        golf_ball.angle = 170
 
-
+    print(golf_ball.angle, golf_ball.rect.centery, self.rect.centery)
 
   def reciprocator(self, start_point, end_point, speed):
     self.speed = speed

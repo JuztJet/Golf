@@ -104,9 +104,10 @@ class Golf_Ball:
             self.y_vel *= -1
         self.rect.centerx -= self.x_vel * self.dt
         self.rect.centery -= self.y_vel * self.dt
-        self.initial_vel -= self.resistance * self.dt
-        if self.initial_vel <= 10:
-            self.shoot = False
+        if not self.resisting:
+            self.initial_vel -= self.resistance * self.dt
+            if self.initial_vel <= 10:
+                self.shoot = False
 
 
         # self.rect = pygame.Rect((self.x_pos - 10, self.y_pos - 10), (20, 20))
@@ -159,7 +160,7 @@ class Golf_Ball:
             if self.shoot:
                 self.shooting()
                 self.bounce_detection()
-                self.spin_angel += self.initial_vel * 10 * self.dt
+                self.spin_angel += self.initial_vel * 6 * self.dt
                 self.image_copy = pygame.transform.rotate(self.image, self.spin_angel)
 
             else:
