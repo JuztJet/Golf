@@ -35,7 +35,7 @@ class Golf_Ball:
         self.shoot = False
         self.resistance = 100
         self.velocity_constant = 0.15
-        self.image = pygame.image.load('Assets/golf.png').convert_alpha()
+        self.image = pygame.transform.smoothscale(pygame.image.load('Assets/golf.png').convert_alpha(), (40, 40))
         self.image_copy = pygame.transform.rotate(self.image, 0)
         self.rect = self.image.get_rect(center=(self.x_pos, self.y_pos))
         self.spin_angel = 0
