@@ -6,7 +6,8 @@ import math
 
 
 class Golf_Ball:
-    def __init__(self, grav, x_pos, y_pos, colour, mass, dt, w, h, mouse_pos, screen, box_width, box_height):
+    def __init__(self, grav, x_pos, y_pos, colour, mass, dt, w, h, mouse_pos, screen, box_width, box_height, mouse_img_rect):
+        self.mouse_img_rect = mouse_img_rect
         self.screen = screen
         self.resisting = False
         self.box_width= box_width
@@ -48,7 +49,7 @@ class Golf_Ball:
     def mouse_click_manager(self):
         if pygame.mouse.get_pressed()[0] == True and self.shoot == False:
 
-            if self.rect.collidepoint(self.mouse_pos):
+            if self.rect.colliderect(self.mouse_img_rect):
 
                 if self.line == False and self.held_down == False:
                     self.held_down = True
@@ -152,9 +153,10 @@ class Golf_Ball:
 
 
 
-    def update(self, mouse_pos, dt):
+    def update(self, mouse_pos, dt, mouse_img_rect):
         self.mouse_pos = mouse_pos
         self.dt = dt
+        self.mouse_img_rect = mouse_img_rect
 
         if self.visible:
             if self.shoot:

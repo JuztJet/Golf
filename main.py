@@ -18,8 +18,10 @@ from Classes.power_up import power_up
 from Classes.Water_class import water
 from Classes.Corner_Block_Class import corner_block
 from Classes.home import home
+from credentials_manager import Manager
 
 pygame.init()  # Starting Pygame
+
 #screen = pygame.display.set_mode((1300,900))  # Main windows called screen
 screen = pygame.display.set_mode(pygame.display.get_desktop_sizes()[0])  # Main windows called screen
 window_w, window_h = pygame.display.get_desktop_sizes()[0]
@@ -38,9 +40,12 @@ dt = clock.tick(70) / 1000
 time = 0
 counter = 1
 
-golf_ball = Golf_Ball(-3.5, w+box_w * .5, h+box_h * .8, "White", 0.04593, dt, box_w, box_h, mouse_pos, screen,w, h)
+mouse_img = pygame.image.load('Assets/mouse_img.png').convert_alpha()
+mouse_img_rect = mouse_img.get_frect(topleft = (0,0))
+manager = Manager
+golf_ball = Golf_Ball(-3.5, w+box_w * .5, h+box_h * .8, "White", 0.04593, dt, box_w, box_h, mouse_pos, screen,w, h, mouse_img_rect)
 grass = pygame.transform.smoothscale(pygame.image.load('Assets/grass.png').convert_alpha(), (box_w,box_h))
-home = home(screen, window_w, window_h)
+home = home(screen, window_w, window_h, manager)
 level_num, game, home_screen = 0, False, True
 
 level1 = Level1(golf_ball, Button, Hole, mouse_pos, screen, w, h, dt, Block, box_w, box_h, slope, power_up, water, corner_block, Sand, time)  # Instantiating class called Level 2
@@ -53,6 +58,9 @@ level2.create_objects()  # Running method inside Level 2 which will create the o
 level3.create_objects()  # Running method inside Level 3 which will create the objects (eg Blocks, golf hole)
 level4.create_objects()  # Running method inside Level 3 which will create the objects (eg Blocks, golf hole)
 level5.create_objects()  # Running method inside Level 3 which will create the objects (eg Blocks, golf hole)
+
+
+
 
 
 # Pygame Loop
@@ -74,7 +82,9 @@ while running:
 
     time += 2 * dt  # Time increase
     mouse_pos = pygame.mouse.get_pos()  # Updating mouse position
+    
     if game:
+        mouse_img_rect.topleft = mouse_pos
         screen.fill('#74C850')
         screen.blit(grass, (w, h))
 
@@ -104,11 +114,13 @@ while running:
         pygame.draw.rect(screen, '#74C850', background_rect1)
         pygame.draw.rect(screen, '#74C850', background_rect2)
 
-        golf_ball.update(mouse_pos, dt)  # Updating the golf ball instance
+        golf_ball.update(mouse_pos, dt, mouse_img_rect)  # Updating the golf ball instance
+        screen.blit(mouse_img, mouse_img_rect)
+        
     if home_screen:
         screen.fill('#7ED957')
         level_num, game, home_screen = home.update(mouse_pos)
-
+    
     dt = clock.tick(70) / 1000
     clock.tick(70)
     pygame.display.flip()
