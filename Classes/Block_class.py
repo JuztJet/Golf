@@ -179,7 +179,7 @@ class Block:
 
     if golf_ball.rect.colliderect(self.rect):
 
-          if abs(self.rect.left-golf_ball.rect.right)<=50:
+          if abs(self.rect.left-golf_ball.rect.right)<=20:
             if not self.reciprocating:
               if golf_ball.rect.right > self.rect.left:
                 golf_ball.rect.right -= 1
@@ -191,7 +191,7 @@ class Block:
               self.side_bounce(golf_ball)
               return
 
-          if abs(self.rect.right-golf_ball.rect.left)<=50:
+          elif abs(self.rect.right-golf_ball.rect.left)<=20:
             if not self.reciprocating:
               if golf_ball.rect.left <self.rect.right:
                 golf_ball.rect.left +=1
@@ -214,7 +214,7 @@ class Block:
             else:
               golf_ball.y_inverse = True
 
-          if abs(self.rect.top - golf_ball.rect.bottom)<=5:
+          elif abs(self.rect.top - golf_ball.rect.bottom)<=9:
             if golf_ball.rect.bottom >self.rect.top:
               golf_ball.rect.bottom = self.rect.top
               golf_ball.rect.bottom -=1
