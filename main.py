@@ -22,7 +22,7 @@ from Classes.home import home
 from Classes.credentials_manager import Manager
 
 pygame.init()  # Starting Pygame
-    #screen = pygame.display.set_mode((1300,900))  # Main windows called screen
+#screen = pygame.display.set_mode((1300,900))  # Main windows called screen
 screen = pygame.display.set_mode(pygame.display.get_desktop_sizes()[0])  # Main windows called screen
 window_w, window_h = pygame.display.get_desktop_sizes()[0]
 print(pygame.display.get_desktop_sizes()[0])
